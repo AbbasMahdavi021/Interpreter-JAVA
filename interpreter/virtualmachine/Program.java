@@ -1,14 +1,22 @@
 package interpreter.virtualmachine;
 
+import interpreter.bytecode.BranchCode;
+import interpreter.bytecode.ByteCode;
+import interpreter.bytecode.LabelCode;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Program {
-
     private List<ByteCode> program;
 
     public Program() {
         program = new ArrayList<>();
+    }
+
+    public Program(ArrayList<ByteCode> args) {
+        program = args;
     }
 
     protected ByteCode getCode(int programCounter) {
@@ -24,9 +32,18 @@ public class Program {
      */
     public void resolveAddress() {
 
+        HashMap<String, Integer> addresses = new HashMap<>();
+
+        for (int i = 0; i < program.size(); i++) {
+            if (program.get(i) instanceof LabelCode) {
+                addresses.put(((LabelCode) program.get(i)).getLabel(), i);
+            }
+        }
+
+        for (ByteCode bc : program) {
+            if (bc instanceof BranchCode) {
+                ((BranchCode) bc).setAddress(addresses.get(((BranchCode) bc).getLabel()));
+            }
+        }
     }
-
-
-
-
 }

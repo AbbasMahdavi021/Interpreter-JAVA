@@ -1,7 +1,7 @@
 # CSC 413 - Project Two - The Interpreter
 
-## Student Name  : Name here
+## Student Name  : Abbas Mahdavi
 
-## Student ID    : ID here
+## Student ID    : 918345420
 
-## Student Email : Email here
+## Student Email : amahdavi2@sfsu.edu
