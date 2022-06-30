@@ -4,9 +4,11 @@ import interpreter.virtualmachine.VirtualMachine;
 
 import java.util.ArrayList;
 
-public class LabelCode extends ByteCode{
+public class LabelCode extends ByteCode implements BranchCode{
 
     private String label;
+
+    private int address;
     @Override
     public void init(ArrayList<String> args) {
         label = args.get(1);
@@ -22,7 +24,14 @@ public class LabelCode extends ByteCode{
     }
 
     @Override
-    public void dump(VirtualMachine vm) {
-        System.out.println("LABEL " + label);
+    public void setAddress(int newAddress) {
+        address = newAddress;
+
     }
+
+    @Override
+    public void dump(VirtualMachine vm) {
+        System.out.println("Label " + label);
+    }
+
 }

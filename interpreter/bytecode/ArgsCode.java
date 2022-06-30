@@ -20,10 +20,7 @@ public class ArgsCode extends ByteCode{
 
     @Override
     public void dump(VirtualMachine vm) {
-
         System.out.println("ARGS " + n);
         vm.setArguments(n);
-
-
     }
 }

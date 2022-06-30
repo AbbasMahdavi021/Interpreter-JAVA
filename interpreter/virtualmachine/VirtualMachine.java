@@ -2,6 +2,8 @@ package interpreter.virtualmachine;
 
 import interpreter.bytecode.ByteCode;
 import interpreter.bytecode.DumpCode;
+import interpreter.bytecode.HaltCode;
+import interpreter.bytecode.LabelCode;
 
 import java.util.Stack;
 
@@ -12,7 +14,6 @@ public class VirtualMachine {
     private Program        program;
     private int            programCounter;
     private boolean        isRunning;
-
     private boolean isDumping;
 
     public VirtualMachine(Program program) {
@@ -29,7 +30,7 @@ public class VirtualMachine {
         runTimeStack = new RunTimeStack();
         returnAddress = new Stack<Integer>();
         isRunning = true;
-        isDumping = false;
+        isDumping = true;
 
         while (isRunning) {
             ByteCode code = program.getCode(programCounter);
@@ -37,10 +38,11 @@ public class VirtualMachine {
 
             // DumpCode does not get dumped and does not dump runStack state
             if (isDumping && !(code instanceof DumpCode)) {
-                code.dump(this); // Dumping byte code happens after execute
-                runTimeStack.dump(); // Used to dump runstack state.
+                if (!LabelCode.class.equals(code.getClass()) && !HaltCode.class.equals(code.getClass())){
+                    code.dump(this); // Dumping byte code happens after execute
+                    runTimeStack.dump(); // Used to dump runstack state.
+                }
             }
-
             programCounter++;
         }
     }
@@ -56,9 +58,6 @@ public class VirtualMachine {
     public void printArguments() {
         runTimeStack.printArguments();
     }
-
-
-
 
     public int popRunTimeStack() {
         return runTimeStack.pop();

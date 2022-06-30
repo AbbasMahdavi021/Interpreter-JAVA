@@ -26,7 +26,7 @@ class RunTimeStack {
                 pos = framePointer.get(i);
             }
         }
-        System.out.println(runTimeStack.subList(pos, runTimeStack.size()) + "\n");
+        System.out.println(runTimeStack.subList(pos, runTimeStack.size()));
     }
 
     private int lastIndex(){
@@ -83,10 +83,9 @@ class RunTimeStack {
     }
 
     public void printArguments() {
+        int size = runTimeStack.size();
 
         for (int i = 0; i < arguments; i++) {
-            int size = runTimeStack.get(runTimeStack.size());
-
             System.out.print(size - arguments + i);
             if (i != arguments - 1) {
                 System.out.print(", ");

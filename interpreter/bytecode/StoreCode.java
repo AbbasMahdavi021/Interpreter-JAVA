@@ -4,14 +4,16 @@ import interpreter.virtualmachine.VirtualMachine;
 
 import java.util.ArrayList;
 
-public class LitCode extends ByteCode{
+public class StoreCode extends ByteCode{
 
-    private int value;
+    private int offset;
+    private int identifiers;
+
     private String x = "";
 
     @Override
     public void init(ArrayList<String> args) {
-        value = Integer.parseInt(args.get(1));
+        offset = Integer.parseInt(args.get(1));
         if (args.size() > 2) {
             x = args.get(2);
         }
@@ -19,15 +21,13 @@ public class LitCode extends ByteCode{
 
     @Override
     public void execute(VirtualMachine vm) {
-        vm.pushRunTimeStack(value);
+        identifiers = vm.peekRunTimeStack();
+        vm.storeRunTimeStack(offset);
     }
 
     @Override
     public void dump(VirtualMachine vm) {
-        System.out.print("LIT " + value);
-        if (!x.equals("")) {
-            System.out.print(" "+ "int " + x);
-        }
-        System.out.println();
+        System.out.println("STORE " + offset + " " + x + "\t" + x + " = " + identifiers);
     }
+
 }
