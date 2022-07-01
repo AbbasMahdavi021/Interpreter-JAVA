@@ -18,4 +18,5 @@ public class HaltCode extends ByteCode{
     @Override
     public void dump(VirtualMachine vm) {
     }
+    //done
 }
