@@ -8,7 +8,6 @@ public class LabelCode extends ByteCode implements BranchCode{
 
     private String label;
 
-    private int address;
     @Override
     public void init(ArrayList<String> args) {
         label = args.get(1);
@@ -16,7 +15,6 @@ public class LabelCode extends ByteCode implements BranchCode{
 
     @Override
     public void execute(VirtualMachine vm) {
-
     }
 
     public String getLabel() {
@@ -25,8 +23,6 @@ public class LabelCode extends ByteCode implements BranchCode{
 
     @Override
     public void setAddress(int newAddress) {
-        address = newAddress;
-
     }
 
     @Override

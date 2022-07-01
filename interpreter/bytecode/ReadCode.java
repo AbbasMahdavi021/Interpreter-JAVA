@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ReadCode extends ByteCode{
+
     @Override
     public void init(ArrayList<String> args) {
 
@@ -15,18 +16,15 @@ public class ReadCode extends ByteCode{
     public void execute(VirtualMachine vm) {
 
         int userInput;
-        boolean flag = true;
-        while (flag){
-
+        while (true){
 
             Scanner obj = new Scanner(System.in);
 
-            System.out.print("Please enter integer: ");
+            System.out.print("Please enter an integer: ");
             String value = obj.nextLine();
             try{
                 userInput = Integer.parseInt(value);
                 vm.pushRunTimeStack(userInput);
-                flag = false;
                 break;
 
             }catch(NumberFormatException e){

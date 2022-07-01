@@ -17,14 +17,13 @@ public class FalseBranchCode extends ByteCode implements BranchCode{
     @Override
     public void execute(VirtualMachine vm) {
         if (vm.popRunTimeStack() == 0) {
-            vm.setProgramCounter(address -1);
+            vm.setAddress(address -1);
         }
     }
 
     @Override
     public void dump(VirtualMachine vm) {
         System.out.println("FALSEBRANCH " + label);
-
     }
 
     @Override
@@ -35,6 +34,6 @@ public class FalseBranchCode extends ByteCode implements BranchCode{
     @Override
     public void setAddress(int newAddress) {
         address = newAddress;
-
     }
+
 }

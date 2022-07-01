@@ -10,8 +10,6 @@ public class CallCode extends ByteCode implements BranchCode{
     private int address;
     private String x;
 
-
-
     @Override
     public void init(ArrayList<String> args) {
         label = args.get(1);
@@ -20,8 +18,8 @@ public class CallCode extends ByteCode implements BranchCode{
 
     @Override
     public void execute(VirtualMachine vm) {
-        vm.saveProgramCounter();
-        vm.setProgramCounter(address -1);
+        vm.setProgramCounter();
+        vm.setAddress(address -1);
     }
 
     @Override
@@ -38,4 +36,5 @@ public class CallCode extends ByteCode implements BranchCode{
     public void setAddress(int newAddress) {
         address = newAddress;
     }
+
 }

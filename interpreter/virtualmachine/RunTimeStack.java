@@ -6,62 +6,60 @@ import java.util.Stack;
 
 class RunTimeStack {
 
-    private List<Integer>  runTimeStack;
-    private Stack<Integer> framePointer;
-    private int arguments;
+    private final List<Integer>  runTimeStack;
+    private final Stack<Integer> framePointer;
 
     public RunTimeStack() {
         runTimeStack = new ArrayList<>();
         framePointer = new Stack<>();
-        // Add initial Frame Pointer, main is the entry
-        // point of our language, so its frame pointer is 0.
         framePointer.add(0);
     }
 
+    public void setArguments () {
+    }
+
     public void dump() {
-        int pos = 0;
+        int getIndex = 0;
         if (framePointer.size() > 1) {
             for (int i = 1; i < framePointer.size(); i++) {
-                System.out.print(runTimeStack.subList(pos, framePointer.get(i)) + " ");
-                pos = framePointer.get(i);
+                System.out.print(runTimeStack.subList(getIndex, framePointer.get(i)) + " ");
+                getIndex = framePointer.get(i);
             }
         }
-        System.out.println(runTimeStack.subList(pos, runTimeStack.size()));
+        System.out.println(runTimeStack.subList(getIndex, runTimeStack.size()));
     }
 
     private int lastIndex(){
-        return Math.max(runTimeStack.size() -1,0);
+        return Math.max(this.runTimeStack.size() -1,0);
     }
 
     int peek(){
         return this.runTimeStack.get(lastIndex());
     }
 
-    int push(int value) {
-        runTimeStack.add(value);
-        return value;
+    void push(int value) {
+        this.runTimeStack.add(value);
     }
 
     int pop() {
         if (!runTimeStack.isEmpty()) {
-            return runTimeStack.remove(lastIndex());
+            return this.runTimeStack.remove(lastIndex());
         }
         return 0;
     }
 
-    public int store(int offsetFromFramePointer) {
+    public void store(int offsetFromFramePointer) {
         int top = pop();
-        runTimeStack.set(framePointer.peek()+offsetFromFramePointer, top);
-        return top;
+        this.runTimeStack.set(framePointer.peek()+offsetFromFramePointer, top);
     }
 
-    public int load(int offsetFromFramePointer) {
-        int newFrame = runTimeStack.get(framePointer.peek());
-        return push(newFrame + offsetFromFramePointer);
+    public void load(int offsetFromFramePointer) {
+        int newFrame = this.runTimeStack.get(framePointer.peek());
+        push(newFrame + offsetFromFramePointer);
     }
 
     public void newFrameAt(int offsetFromTopOfRunStack) {
-        int range = runTimeStack.size();
+        int range = this.runTimeStack.size();
         framePointer.push( range -offsetFromTopOfRunStack);
     }
 
@@ -78,18 +76,4 @@ class RunTimeStack {
         }
     }
 
-    public void setArguments(int x) {
-        arguments = x;
-    }
-
-    public void printArguments() {
-        int size = runTimeStack.size();
-
-        for (int i = 0; i < arguments; i++) {
-            System.out.print(size - arguments + i);
-            if (i != arguments - 1) {
-                System.out.print(", ");
-            }
-        }
-    }
 }

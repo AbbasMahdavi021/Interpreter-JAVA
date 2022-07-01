@@ -34,15 +34,8 @@ public class CodeTable {
         codeTable.put("DUMP",        "DumpCode");
     }
 
-    /**
-     * A method to facilitate the retrieval of the names
-     * of a specific byte code class.
-     * @param className for byte code.
-     * @return class name of desired byte code.
-     */
     public static String getClassName(String className){
-        
         return codeTable.get(className);
-        
     }
+
 }

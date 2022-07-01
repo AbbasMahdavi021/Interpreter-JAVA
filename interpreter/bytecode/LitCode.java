@@ -26,8 +26,9 @@ public class LitCode extends ByteCode{
     public void dump(VirtualMachine vm) {
         System.out.print("LIT " + value);
         if (!x.equals("")) {
-            System.out.print(" "+ "int " + x);
+            System.out.print("\t" + "int " + x);
         }
         System.out.println();
     }
+
 }

@@ -7,14 +7,13 @@ import java.util.ArrayList;
 public class LoadCode extends ByteCode{
 
     private int offset;
-
-    private String x = "";
+    private String identifier = "";
 
     @Override
     public void init(ArrayList<String> args) {
         offset = Integer.parseInt(args.get(1));
         if (args.size() > 2){
-            x = args.get(2);
+            identifier = args.get(2);
         }
     }
 
@@ -26,8 +25,10 @@ public class LoadCode extends ByteCode{
     @Override
     public void dump(VirtualMachine vm) {
         System.out.print("LOAD "+offset);
-        if (!(x.equals(""))){
-            System.out.println(" "+ x+"\t"+"<"+"Load "+x+">");
+        if (!("".equals(identifier))){
+            System.out.println(" "+ identifier + "\t" + "<load "+ identifier +">");
+        }else{
+            System.out.println();
         }
     }
 }

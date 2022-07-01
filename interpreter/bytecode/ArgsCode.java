@@ -6,21 +6,22 @@ import java.util.ArrayList;
 
 public class ArgsCode extends ByteCode{
 
-    private int n;
+    private int value;
 
     @Override
     public void init(ArrayList<String> args) {
-        n = Integer.parseInt(args.get(1));
+        value = Integer.parseInt(args.get(1));
     }
 
     @Override
     public void execute(VirtualMachine vm) {
-        vm.newFrameAt(n);
+        vm.newFrameAt(value);
     }
 
     @Override
     public void dump(VirtualMachine vm) {
-        System.out.println("ARGS " + n);
-        vm.setArguments(n);
+        System.out.println("ARGS " + value);
+        vm.loadArgs();
     }
+
 }

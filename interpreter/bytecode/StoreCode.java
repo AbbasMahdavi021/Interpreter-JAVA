@@ -8,7 +8,6 @@ public class StoreCode extends ByteCode{
 
     private int offset;
     private int identifiers;
-
     private String x = "";
 
     @Override

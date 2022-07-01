@@ -14,99 +14,85 @@ public class VirtualMachine {
     private Program        program;
     private int            programCounter;
     private boolean        isRunning;
-    private boolean isDumping;
+    private boolean        dumpingIsON;
+
+
 
     public VirtualMachine(Program program) {
         this.program = program;
     }
-
     public void notRunning() {
         isRunning = false;
     }
+    public void setDump(boolean on) {
+        this.dumpingIsON = on;
+    }
+    public void loadArgs() {
+        this.runTimeStack.setArguments();
+    }
+
+
+
+    public int popRunTimeStack() {
+        return this.runTimeStack.pop();
+    }
+    public int peekRunTimeStack() {
+        return this.runTimeStack.peek();
+    }
+    public void pushRunTimeStack(Integer value) {
+        this.runTimeStack.push(value);
+    }
+    public void storeRunTimeStack(int offsetFromFramePointer) {
+        this.runTimeStack.store(offsetFromFramePointer);
+    }
+    public void loadRunTimeStack(int offsetFromFramePointer) {
+        this.runTimeStack.load(offsetFromFramePointer);
+    }
+    public void newFrameAt(int offsetFromFramePointer) {
+        this.runTimeStack.newFrameAt(offsetFromFramePointer);
+    }
+    public void popFrame() {
+        this.runTimeStack.popFrame();
+    }
+
+
+
+    public void pushAddress(int value) {
+        this.returnAddress.push(value);
+    }
+    public void setProgramCounter() {
+        this.pushAddress(programCounter);
+    }
+    public void setAddress(int programCounter) {
+        this.programCounter = programCounter;
+    }
+    public void returnAddress() {
+        this.setAddress( returnAddress.pop());
+    }
+
+
 
     public void executeProgram() {
 
         programCounter = 0;
         runTimeStack = new RunTimeStack();
-        returnAddress = new Stack<Integer>();
+        returnAddress = new Stack<>();
         isRunning = true;
-        isDumping = true;
+        dumpingIsON = false;          //Switch to true , to turn on dumping function
 
         while (isRunning) {
             ByteCode code = program.getCode(programCounter);
             code.execute(this);
 
-            // DumpCode does not get dumped and does not dump runStack state
-            if (isDumping && !(code instanceof DumpCode)) {
+            if (dumpingIsON && !(code instanceof DumpCode)) {
+                //do not dump LabelCode or Halt in the output.
                 if (!LabelCode.class.equals(code.getClass()) && !HaltCode.class.equals(code.getClass())){
-                    code.dump(this); // Dumping byte code happens after execute
-                    runTimeStack.dump(); // Used to dump runstack state.
+                    code.dump(this);
+                    runTimeStack.dump();
                 }
             }
             programCounter++;
         }
-    }
-
-    public void setDump(boolean on) {
-        isDumping = on;
-    }
-
-    public void setArguments(int count) {
-        runTimeStack.setArguments(count);
-    }
-
-    public void printArguments() {
-        runTimeStack.printArguments();
-    }
-
-    public int popRunTimeStack() {
-        return runTimeStack.pop();
-    }
-
-    public int peekRunTimeStack() {
-        return runTimeStack.peek();
-    }
-
-    public void pushRunTimeStack(Integer value) {
-        runTimeStack.push(value);
-    }
-
-    public void storeRunTimeStack(int offsetFromFramePointer) {
-        runTimeStack.store(offsetFromFramePointer);
-    }
-
-    public void loadRunTimeStack(int offsetFromFramePointer) {
-        runTimeStack.load(offsetFromFramePointer);
-    }
-
-    public void newFrameAt(int offsetFromFramePointer) {
-        runTimeStack.newFrameAt(offsetFromFramePointer);
-    }
-
-    public void popFrame() {
-        runTimeStack.popFrame();
-    }
-
-
-
-
-
-    public void pushProgramCounter(int value) {
-        returnAddress.push(value);
-    }
-
-    public void returnProgramCounter() {
-        if (!returnAddress.isEmpty()) {
-            setProgramCounter( returnAddress.pop());
-        }
-    }
-
-    public void saveProgramCounter() {
-        pushProgramCounter(programCounter);
-    }
-
-    public void setProgramCounter(int programCounter) {
-        this.programCounter = programCounter;
     }
 
 }

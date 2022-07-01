@@ -7,9 +7,7 @@ import java.util.ArrayList;
 public class GotoCode extends ByteCode implements BranchCode{
 
     private String label;
-
     private int address;
-
 
 
     @Override
@@ -19,13 +17,12 @@ public class GotoCode extends ByteCode implements BranchCode{
 
     @Override
     public void execute(VirtualMachine vm) {
-        vm.setProgramCounter(address -1);
+        vm.setAddress(address -1);
     }
 
     @Override
     public void dump(VirtualMachine vm) {
         System.out.println("GOTO " + label);
-
     }
 
     @Override
