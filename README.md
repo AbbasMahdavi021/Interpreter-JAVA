@@ -12,4 +12,4 @@ Includes sample programs for computing Fibonacci numbers and factorials
 Sample Programs
 Two sample programs, a recursive Fibonacci computation and factorial calculation, are included as ".x.cod" files. You can use them as references or test cases for your own Mock Language X programs.
 
-Please note that this project has been completed, offering full functionality for executing Mock Language X programs and running the provided sample programs.
+Please refer to each project's respective directory and the documentation directory for more details on their implementation, usage instructions, and any additional documentation.
