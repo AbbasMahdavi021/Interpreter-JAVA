@@ -50,5 +50,4 @@ public final class ByteCodeLoader {
         program.resolveAddress();
         return program;
     }
-
 }

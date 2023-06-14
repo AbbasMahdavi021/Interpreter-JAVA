@@ -8,7 +8,7 @@ public class CallCode extends ByteCode implements BranchCode{
 
     private String label;
     private int address;
-    private String x;
+    private String x = "";
 
     @Override
     public void init(ArrayList<String> args) {
@@ -24,6 +24,9 @@ public class CallCode extends ByteCode implements BranchCode{
 
     @Override
     public void dump(VirtualMachine vm) {
+        if (!x.isEmpty()) {
+            int top = vm.popRunTimeStack();
+        }
         System.out.println("CALL " + label + "\t" + x + "()");
     }
 
